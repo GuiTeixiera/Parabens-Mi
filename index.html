@@ -23,7 +23,6 @@
       position: relative;
     }
 
-    /* Canvas dos fogos de artifício */
     #fireworksCanvas {
       position: fixed;
       top: 0;
@@ -34,7 +33,6 @@
       z-index: 99;
     }
 
-    /* Container de seções */
     section {
       min-height: 100vh;
       display: flex;
@@ -47,7 +45,6 @@
       z-index: 100;
     }
 
-    /* Seção Principal / Header */
     .hero h1 {
       font-family: 'Dancing Script', cursive;
       font-size: 3.5rem;
@@ -63,7 +60,6 @@
       margin-bottom: 15px;
     }
 
-    /* Botão de Áudio no Topo */
     .music-box {
       margin-top: 20px;
       margin-bottom: 25px;
@@ -114,7 +110,6 @@
       color: #ff4b72;
     }
 
-    /* Seção de Mensagem */
     .message-container {
       max-width: 650px;
       margin-bottom: 30px;
@@ -135,7 +130,6 @@
       margin-bottom: 0;
     }
 
-    /* Imagem / Mosaico das Fotos */
     .photo-wrapper {
       position: relative;
       margin: 20px 0;
@@ -164,7 +158,6 @@
       line-height: 1.5;
     }
 
-    /* Seção Final */
     .final-section h2 {
       font-family: 'Dancing Script', cursive;
       font-size: 3rem;
@@ -179,7 +172,6 @@
       animation: pulse 1.5s infinite;
     }
 
-    /* Animações */
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.25); }
@@ -192,7 +184,6 @@
       60% { transform: translateY(-5px); }
     }
 
-    /* Responsividade Celular */
     @media (max-width: 600px) {
       .hero h1 { font-size: 2.7rem; }
       .final-section h2 { font-size: 2.3rem; }
@@ -202,21 +193,17 @@
 </head>
 <body>
 
-  <!-- Canvas de Fogos de Artifício -->
   <canvas id="fireworksCanvas"></canvas>
 
-  <!-- Tag de Áudio Escondida -->
-  <audio id="bgMusic" loop>
-    <source src="_STO-100 LAT_ - Polish Birthday Song (Eng. Subs) [14kApBJuEN4].mp3" type="audio/mpeg">
+  <audio id="bgMusic" loop preload="auto">
+    <source src="stolat.mp3.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- Primeira Seção -->
   <section class="hero">
     <h1>Happy Birthday, Milena ❤️</h1>
     <p>I did a little research on Polish celebrations and birthday traditions, and I saw that this song is a must-have! Hope I got it right kkkk.</p>
     
-    <!-- Caixa com Botão de Play -->
     <div class="music-box">
       <p>Click below to play the birthday song!</p>
       <button class="play-btn" id="playBtn" onclick="toggleMusic()">
@@ -228,7 +215,6 @@
     <div class="scroll-hint">↓</div>
   </section>
 
-  <!-- Segunda Seção: Mensagem Sincera -->
   <section>
     <div class="message-container">
       <p>Even with so many kilometers between us, I'm really happy that our paths crossed.</p>
@@ -239,10 +225,9 @@
       <img src="20260926_163218_0000.png" alt="Heart made of poses">
     </div>
 
-    <p class="caption">Remember that idea you gave us to make a heart out of our poses? Well, mine didn't turn out perfect kkkk, but what matters is that I tried! A little heart made just for you. Corny? Maybe. Worth it? Definitely.</p>
+    <p class="caption">Remember that idea you gave us to make a heart out of our poses? Well, mine didn't turn out perfect XDDD, but what matters is that I tried! A little heart made just for you. Corny? Maybe. Worth it? Definitely.</p>
   </section>
 
-  <!-- Terceira Seção: Mensagem Final -->
   <section class="final-section">
     <h2>See you in Poland someday! 🇵🇱</h2>
     <p>Have an amazing birthday.</p>
@@ -250,16 +235,18 @@
   </section>
 
   <script>
-    // Controle da Música
     function toggleMusic() {
       const music = document.getElementById('bgMusic');
       const btnText = document.getElementById('btnText');
       const playIcon = document.getElementById('playIcon');
 
       if (music.paused) {
-        music.play();
-        btnText.textContent = 'Pause "Sto Lat"';
-        playIcon.textContent = '❚❚';
+        music.play().then(() => {
+          btnText.textContent = 'Pause "Sto Lat"';
+          playIcon.textContent = '❚❚';
+        }).catch(err => {
+          console.log("Erro ao tocar áudio: ", err);
+        });
       } else {
         music.pause();
         btnText.textContent = 'Play "Sto Lat"';
@@ -267,7 +254,6 @@
       }
     }
 
-    // Animação de Fogos de Artifício (Canvas)
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -342,7 +328,6 @@
       });
     }
 
-    // Lança fogos a cada 800ms
     setInterval(createFirework, 800);
     animate();
   </script>
